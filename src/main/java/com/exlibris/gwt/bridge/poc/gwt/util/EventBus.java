@@ -39,8 +39,9 @@ public class EventBus {
 //    listeners(event: string | string[]): Listener[] // TODO: not in documentation by Willian
 //    listenersAny(): Listener[] // TODO: not in documentation by Willian
 
-    public native boolean emit(String eventName, Object event) /*-{
-        console.debug('GWT emitting ', eventName, event);
-        return this.eventBus.emit(eventName, event);
+    public native boolean emit(String eventName, Object... values) /*-{
+        console.debug('GWT emitting ', eventName, JSON.stringify(values));
+        var eventBus = this.eventBus;
+        return eventBus.emit.apply(eventBus, [eventName].concat(values));
     }-*/;
 }
