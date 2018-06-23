@@ -1,5 +1,6 @@
-package com.exlibris.gwt.bridge.poc.gwt;
+package com.exlibris.gwt.bridge.poc.gwt.demo;
 
+import com.exlibris.gwt.bridge.poc.gwt.util.SharedEventBus;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.*;
 
@@ -10,7 +11,7 @@ public class EventBusDemoPanel extends SimplePanel {
     private HTML logDiv;
     private TextBox messageField;
 
-    public EventBusDemoPanel() {
+    public EventBusDemoPanel(SharedEventBus eventBus) {
         // message log
         logDiv = new HTML();
         logDiv.addStyleName("log");
@@ -19,7 +20,7 @@ public class EventBusDemoPanel extends SimplePanel {
         // message field
         messageField = new TextBox();
         messageField.setWidth("100%");
-        messageField.setValue("{\"cmd\":\"doStuff\"}");
+        messageField.setValue("{\"event\":\"demo\",\"cmd\":\"doStuff\"}");
 
         // send button
         final Button sendButton = new Button("Send", (ClickHandler) clickEvent -> onSendButtonClicked());
@@ -41,7 +42,7 @@ public class EventBusDemoPanel extends SimplePanel {
     }
 
     private void onSendButtonClicked() {
-        String message = messageField.getValue();
-        log("Sending message: <span class='msg'>" + message + "</span> to Angular...");
+        String eventJson = messageField.getValue();
+        log("Sending message: <span class='event'>" + eventJson + "</span> to Angular...");
     }
 }

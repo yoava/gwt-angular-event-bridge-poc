@@ -1,0 +1,12 @@
+<div>
+  <div style="display: flex; ">
+    <input style="flex-grow: 1;" type="text" [(ngModel)]="eventJson">
+    <button type="button" (click)="onSendButtonClicked()">Send</button>
+
+  </div>
+
+  <div class="log">
+    <div *ngFor="let logMessage of logMessages" [innerHTML]="logMessage" class="info">
+    </div>
+  </div>
+</div>

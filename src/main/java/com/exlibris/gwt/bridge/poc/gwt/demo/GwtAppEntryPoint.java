@@ -1,10 +1,11 @@
-package com.exlibris.gwt.bridge.poc.gwt;
+package com.exlibris.gwt.bridge.poc.gwt.demo;
 
+import com.exlibris.gwt.bridge.poc.gwt.util.SharedEventBus;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class GwtAppEntryPoint implements EntryPoint {
     public void onModuleLoad() {
-        RootPanel.get("gwtApp").add(new EventBusDemoPanel());
+        RootPanel.get("gwtApp").add(new EventBusDemoPanel(new SharedEventBus()));
     }
 }
