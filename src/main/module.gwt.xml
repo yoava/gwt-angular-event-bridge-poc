@@ -3,7 +3,9 @@
   "http://google-web-toolkit.googlecode.com/svn/tags/2.7.0/distro-source/core/src/gwt-module.dtd">
 <module rename-to="GwtApp">
 
-  <inherits name='com.google.gwt.user.User'/>
+  <inherits name="com.google.gwt.user.User"/>
+  <inherits name="com.google.gwt.json.JSON"/>
+  <inherits name="com.google.gwt.http.HTTP"/>
   <source path="gwt"/>
-  <entry-point class='com.exlibris.gwt.bridge.poc.gwt.demo.GwtAppEntryPoint'/>
+  <entry-point class="com.exlibris.gwt.bridge.poc.gwt.demo.GwtAppEntryPoint"/>
 </module>

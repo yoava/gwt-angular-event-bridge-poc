@@ -14,13 +14,15 @@ export class AppComponent {
     this.log('Press [Send] to send message to GWT.');
 
     this.eventBus.onAny((eventName, event) => {
-      this.log(`Received event '${eventName}': <span class="event">${JSON.stringify(event)}</span>`)
+      this.log(`Received event '${eventName}': <span class="event">${JSON.stringify(event)}</span>`);
+      console.info(`Angular received '${eventName}': ${JSON.stringify(event)}`);
     });
   }
 
   onSendButtonClicked() {
-    this.log("Sending message: <span class='event'>" + this.eventJson + "</span> to GWT...");
     const event = JSON.parse(this.eventJson);
+    this.log(`Sending message: <span class='event'>${this.eventJson}</span> to GWT...`);
+    console.info(`Angular emitting '${event.event}': ${this.eventJson}`);
     this.eventBus.emit(event.event, event);
   }
 
