@@ -23,6 +23,10 @@ export class AppModule {
     window['__sharedEventBus'] = eventBus;
 
     // refresh after any event
-    eventBus.onAny(() => setTimeout(() => applicationRef.tick(), 0))
+    let timeout;
+    eventBus.onAny(() => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => applicationRef.tick(), 0);
+    })
   }
 }
