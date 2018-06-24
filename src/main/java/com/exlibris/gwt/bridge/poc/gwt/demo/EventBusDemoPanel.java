@@ -27,20 +27,20 @@ public class EventBusDemoPanel extends SimplePanel {
 
         // message field
         messageField = new TextBox();
-        messageField.setWidth("100%");
         messageField.setValue("{\"event\":\"demo\",\"cmd\":\"doStuff\"}");
 
         // send button
         final Button sendButton = new Button("Send", (ClickHandler) clickEvent -> onSendButtonClicked());
 
         // add app panel
-        FlexTable appPanel = new FlexTable();
-        appPanel.setWidth("100%");
+        FlowPanel appPanel = new FlowPanel();
 
-        appPanel.setWidget(0, 0, messageField);
-        appPanel.setWidget(0, 1, sendButton);
-        appPanel.setWidget(1, 0, logDiv);
-        appPanel.getFlexCellFormatter().setColSpan(1, 0, 2);
+        FlowPanel formPanel = new FlowPanel();
+        formPanel.addStyleName("form");
+        formPanel.add(messageField);
+        formPanel.add(sendButton);
+        appPanel.add(formPanel);
+        appPanel.add(logDiv);
 
         eventBus.onAny((AnyEventListener<JavaScriptObject>) (eventName, event) ->
             EventBusDemoPanel.this.log("Received event '" + eventName + "': <span class='event'>"
