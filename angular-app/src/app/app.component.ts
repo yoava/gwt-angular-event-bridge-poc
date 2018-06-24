@@ -17,6 +17,8 @@ export class AppComponent {
       this.log(`Received event '${eventName}': <span class="event">${JSON.stringify(event)}</span>`);
       console.info(`Angular received '${eventName}': ${JSON.stringify(event)}`);
     });
+
+    this.eventBus.on('demo', (event) => this.log(`Got DEMO event: cmd: ${event.cmd}`))
   }
 
   onSendButtonClicked() {

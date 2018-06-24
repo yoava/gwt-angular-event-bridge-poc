@@ -1,15 +1,17 @@
 package com.exlibris.gwt.bridge.poc.gwt.util;
 
 
+import com.google.gwt.event.shared.SimpleEventBus;
+
 /**
  * @author yoava
  */
-public class EventBus {
-    public EventBus() {
+public class SharedEventBus extends SimpleEventBus {
+    public SharedEventBus() {
         this("__sharedEventBus");
     }
 
-    public EventBus(String referenceName) {
+    public SharedEventBus(String referenceName) {
         init(referenceName);
     }
 
@@ -19,16 +21,13 @@ public class EventBus {
         this.eventBus = $wnd[referenceName];
     }-*/;
 
-//    emit(event: string | string[], ...values: any[]): boolean;
 //    emitAsync(event: string | string[], ...values: any[]): Promise<any[]>;
-//    addListener(event: string, listener: Listener): this;
 //    on(event: string | string[], listener: Listener): this;
 //    prependListener(event: string | string[], listener: Listener): this;
 //    once(event: string | string[], listener: Listener): this;
 //    prependOnceListener(event: string | string[], listener: Listener): this;
 //    many(event: string | string[], timesToListen: number, listener: Listener): this;
 //    prependMany(event: string | string[], timesToListen: number, listener: Listener): this;
-//    onAny(listener: EventAndListener): this;
 //    prependAny(listener: EventAndListener): this;
 //    offAny(listener: Listener): this;
 //    removeListener(event: string | string[], listener: Listener): this;
@@ -39,9 +38,19 @@ public class EventBus {
 //    listeners(event: string | string[]): Listener[] // TODO: not in documentation by Willian
 //    listenersAny(): Listener[] // TODO: not in documentation by Willian
 
-    public native boolean emit(String eventName, Object... values) /*-{
-        console.debug('GWT emitting ', eventName, JSON.stringify(values));
-        var eventBus = this.eventBus;
-        return eventBus.emit.apply(eventBus, [eventName].concat(values));
+    public native boolean emit(String event, Object... values) /*-{
+        console.debug('GWT emitting ', event, JSON.stringify(values));
+        return this.eventBus.emit.apply(this.eventBus, [event].concat(values));
     }-*/;
+
+    public native <T> SharedEventBus on(String event, EventListener<T> listener) /*-{
+        this.eventBus.on(event, listener);
+        return this;
+    }-*/;
+
+    public native <T> SharedEventBus onAny(AnyEventListener<T> listener) /*-{
+        this.eventBus.onAny(listener);
+        return this;
+    }-*/;
+
 }

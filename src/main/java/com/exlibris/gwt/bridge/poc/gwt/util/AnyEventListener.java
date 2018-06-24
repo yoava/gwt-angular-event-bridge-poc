@@ -6,7 +6,7 @@ import jsinterop.annotations.JsFunction;
  * @author yoava
  */
 @JsFunction
-public interface EventListener<T> {
+public interface AnyEventListener<T> {
 
-    void callback(T event);
+    void callback(String eventName, T event);
 }

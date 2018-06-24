@@ -1,6 +1,9 @@
 package com.exlibris.gwt.bridge.poc.gwt.demo;
 
-import com.exlibris.gwt.bridge.poc.gwt.util.EventBus;
+import com.exlibris.gwt.bridge.poc.gwt.util.AnyEventListener;
+import com.exlibris.gwt.bridge.poc.gwt.util.SharedEventBus;
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsonUtils;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
@@ -12,9 +15,9 @@ import com.google.gwt.user.client.ui.*;
 public class EventBusDemoPanel extends SimplePanel {
     private HTML logDiv;
     private TextBox messageField;
-    private EventBus eventBus;
+    private SharedEventBus eventBus;
 
-    public EventBusDemoPanel(EventBus eventBus) {
+    public EventBusDemoPanel(SharedEventBus eventBus) {
         this.eventBus = eventBus;
 
         // message log
@@ -38,6 +41,12 @@ public class EventBusDemoPanel extends SimplePanel {
         appPanel.setWidget(0, 1, sendButton);
         appPanel.setWidget(1, 0, logDiv);
         appPanel.getFlexCellFormatter().setColSpan(1, 0, 2);
+
+        eventBus.onAny((AnyEventListener<JavaScriptObject>) (eventName, event) ->
+            EventBusDemoPanel.this.log("Received event '" + eventName + "': <span class='event'>"
+                + JsonUtils.stringify(event) + "</span>"));
+
+        eventBus.on("demo", (DemoEvent event) -> EventBusDemoPanel.this.log("Got DEMO event: cmd: " + event.cmd));
 
         setWidget(appPanel);
     }
