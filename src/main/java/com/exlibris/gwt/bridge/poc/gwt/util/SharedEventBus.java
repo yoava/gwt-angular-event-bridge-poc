@@ -1,12 +1,10 @@
 package com.exlibris.gwt.bridge.poc.gwt.util;
 
 
-import com.google.gwt.event.shared.SimpleEventBus;
-
 /**
  * @author yoava
  */
-public class SharedEventBus extends SimpleEventBus {
+public class SharedEventBus {
     public SharedEventBus() {
         this("__sharedEventBus");
     }
@@ -43,6 +41,11 @@ public class SharedEventBus extends SimpleEventBus {
         return this.eventBus.emit.apply(this.eventBus, [event].concat(values));
     }-*/;
 
+    public native <T> SharedEventBus off(String event, EventListener<T> listener) /*-{
+        this.eventBus.off(event, listener);
+        return this;
+    }-*/;
+
     public native <T> SharedEventBus on(String event, EventListener<T> listener) /*-{
         this.eventBus.on(event, listener);
         return this;
@@ -50,6 +53,11 @@ public class SharedEventBus extends SimpleEventBus {
 
     public native <T> SharedEventBus onAny(AnyEventListener<T> listener) /*-{
         this.eventBus.onAny(listener);
+        return this;
+    }-*/;
+
+    public native <T> SharedEventBus offAny(AnyEventListener<T> listener) /*-{
+        this.eventBus.offAny(listener);
         return this;
     }-*/;
 
