@@ -46,7 +46,7 @@ public class EventBusDemoPanel extends SimplePanel {
             EventBusDemoPanel.this.log("Received event '" + eventName + "': <span class='event'>"
                 + JsonUtils.stringify(event) + "</span>"));
 
-        eventBus.on("demo", (DemoEvent event) -> EventBusDemoPanel.this.log("Got DEMO event: cmd: " + event.cmd));
+        eventBus.on("demo", (DemoEvent event) -> EventBusDemoPanel.this.log("Got DEMO event: cmd: " + event.getCmd()));
 
         setWidget(appPanel);
     }
